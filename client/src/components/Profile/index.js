@@ -1,5 +1,6 @@
 import React from 'react'
 import UserInfo from './UserInfo'
+import withAuth from '../withAuth'
 
 const Profile = ({ session }) => (
     <div >
@@ -7,4 +8,4 @@ const Profile = ({ session }) => (
     </div>
 )
 
-export default Profile
+export default withAuth(session => session && session.getCurrentUser)(Profile)
