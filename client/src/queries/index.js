@@ -55,6 +55,16 @@ export const GET_CURRENT_USER = gql`
     }
 `
 
+export const SEARCH_RECIPES = gql`
+query($searchTerm: String) {
+  searchRecipes(searchTerm: $searchTerm) {
+    _id
+    name
+    likes
+  }
+}
+`
+
 export const SIGNUP_USER = gql`
 mutation($username: String!, $email: String!, $password: String!) {
     signupUser(input: {

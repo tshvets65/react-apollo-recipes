@@ -28,4 +28,8 @@ const RecipeSchema = Schema({
     }
 }, { timestamps: true })
 
+RecipeSchema.index({
+    '$**': 'text'
+})
+
 module.exports = mongoose.model('Recipe', RecipeSchema)
