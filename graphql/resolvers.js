@@ -9,7 +9,7 @@ const createToken = (user, secret, expiresIn) => {
 module.exports = {
     Query: {
         getAllRecipes: async (root, args, { Recipe }) => {
-            const allRecipes = await Recipe.find()
+            const allRecipes = await Recipe.find().sort({ createdAt: 'desc' })
             return allRecipes
         },
         getCurrentUser: async (root, args, { currentUser, User }) => {
@@ -20,6 +20,10 @@ module.exports = {
                     model: 'Recipe'
                 })
             return user
+        },
+        getRecipe: async (root, { _id }, { Recipe }) => {
+            const recipe = await Recipe.findById(_id).populate('author')
+            return recipe
         }
     },
     Mutation: {

@@ -42,11 +42,13 @@ module.exports = gql`
         category: String!
         description: String!
         instructions: String! 
+        author: ID!
     }
 
     type Query {
         getAllRecipes: [Recipe]
         getCurrentUser: User
+        getRecipe(_id: ID!): Recipe
     }
 
     type Mutation {
