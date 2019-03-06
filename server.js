@@ -1,5 +1,6 @@
 const express = require('express')
 const mongoose = require('mongoose')
+const jwt = require('jsonwebtoken')
 const bodyParser = require('body-parser')
 require('dotenv').config()
 
@@ -15,15 +16,30 @@ mongoose.connect(process.env.MONGO_URI, { useNewUrlParser: true })
 
 const app = express()
 
+app.use(async (req, res, next) => {
+    const token = req.headers['authorization']
+    if (token && token !== 'null') {
+        try {
+            const currentUser = await jwt.verify(token, process.env.SECRET)
+            req.currentUser = currentUser
+            console.log(currentUser)
+        } catch (err) {
+            console.error(err)
+        }
+    }
+    next()
+})
+
 const { ApolloServer } = require('apollo-server-express');
 
 const server = new ApolloServer({
     typeDefs,
     resolvers,
-    context: {
+    context: ({ req }) => ({
         Recipe,
-        User
-    }
+        User,
+        currentUser: req.currentUser
+    })
 });
 
 server.applyMiddleware({ app })

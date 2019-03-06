@@ -32,6 +32,11 @@ module.exports = gql`
         email: String!
     }
 
+    input SigninUserInput {
+        username: String!
+        password: String! 
+    }
+
     input RecipeInput {
         name: String!
         category: String!
@@ -41,10 +46,12 @@ module.exports = gql`
 
     type Query {
         getAllRecipes: [Recipe]
+        getCurrentUser: User
     }
 
     type Mutation {
         addRecipe(input: RecipeInput!): Recipe
         signupUser(input: SignupUserInput!): Token
+        signinUser(input: SigninUserInput!): Token
     }
 `

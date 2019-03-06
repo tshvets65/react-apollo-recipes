@@ -7,29 +7,48 @@ import './index.css';
 import App from './components/App';
 import Signin from './components/Auth/Signin'
 import Signup from './components/Auth/Signup'
-
+import withSession from './components/withSession'
 
 const client = new ApolloClient({
-    uri: process.env.REACT_APP_APOLLO_URI
+    uri: process.env.REACT_APP_APOLLO_URI,
+    fetchOptions: {
+        credentials: 'include'
+    },
+    request: operation => {
+        const token = localStorage.getItem('token')
+        operation.setContext({
+            headers: {
+                authorization: token
+            }
+        })
+    },
+    onError: ({ networkError }) => {
+        if (networkError) {
+            console.error('Network Error', networkError)
+            // if(networkError.statusCode === 401) {
+            //     localStorage.removeItem('token')
+            // }
+        }
+    }
 });
 
-const Root = () => (
+const Root = ({ refetch }) => (
     <BrowserRouter>
         <Switch>
             <Route path='/' exact component={App} />
-            <Route path='/signin' component={Signin} />
-            <Route path='/signup' component={Signup} />
+            <Route path='/signin' render={() => <Signin refetch={refetch} />} />
+            <Route path='/signup' render={() => <Signup refetch={refetch} />} />
             <Redirect to='/' />
         </Switch>
     </BrowserRouter>
 )
 
-export default Root
+const RootWithSession = withSession(Root)
 
 ReactDOM.render(
 
     <ApolloProvider client={client}>
-        <Root />
+        <RootWithSession />
     </ApolloProvider>
 
     , document.getElementById('root'));
