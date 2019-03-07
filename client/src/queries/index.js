@@ -20,10 +20,19 @@ query($id: ID!) {
     instructions
     likes
     createdAt
-    likes
     author {
       username
     }
+  }
+}
+`
+
+export const GET_USER_RECIPES = gql`
+query($user: ID!) {
+  getUserRecipes(user: $user) {
+    _id
+    name
+    likes
   }
 }
 `
@@ -42,6 +51,14 @@ export const ADD_RECIPE = gql`
         category
     }
   }
+`
+
+export const DELETE_USER_RECIPE = gql`
+mutation($id: ID!) {
+  deleteUserRecipe(_id: $id) {
+    _id
+  }
+}
 `
 
 export const GET_CURRENT_USER = gql`
@@ -91,3 +108,4 @@ mutation($username: String!, $password: String!) {
     }
   }
 `
+

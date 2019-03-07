@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import { Mutation } from 'react-apollo'
-import { ADD_RECIPE, GET_ALL_RECIPES } from '../../queries'
+import { ADD_RECIPE, GET_ALL_RECIPES, GET_USER_RECIPES } from '../../queries'
 import Error from '../Error'
 import withAuth from '../withAuth'
 
@@ -32,8 +32,7 @@ class AddRecipe extends Component {
 
     handleSubmit = (event, addRecipe) => {
         event.preventDefault()
-        addRecipe().then(async ({ data }) => {
-            // console.log(data)
+        addRecipe().then(({ data }) => {
             this.clearState()
             this.props.history.push('/')
         })
@@ -51,8 +50,6 @@ class AddRecipe extends Component {
 
     updateCache = (cache, { data: { addRecipe } }) => {
         const { getAllRecipes } = cache.readQuery({ query: GET_ALL_RECIPES })
-        console.log(addRecipe)
-        console.log(getAllRecipes)
         cache.writeQuery({
             query: GET_ALL_RECIPES,
             data: {
@@ -67,8 +64,12 @@ class AddRecipe extends Component {
         return (
             <div className='App'>
                 <h2>Add Recipe</h2>
-                <Mutation mutation={ADD_RECIPE}
+                <Mutation
+                    mutation={ADD_RECIPE}
                     variables={{ name, category, description, instructions, author }}
+                    refetchQueries={() => [
+                        { query: GET_USER_RECIPES, variables: { user: author } }
+                    ]}
                     update={this.updateCache}
                 >
                     {(addRecipe, { data, loading, error }) => {

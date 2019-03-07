@@ -12,6 +12,10 @@ module.exports = {
             const allRecipes = await Recipe.find().sort({ createdAt: 'desc' })
             return allRecipes
         },
+        getUserRecipes: async (root, { user }, { Recipe }) => {
+            const userRecipes = await Recipe.find({ author: user }).sort({ createdAt: 'desc' })
+            return userRecipes
+        },
         getCurrentUser: async (root, args, { currentUser, User }) => {
             if (!currentUser) return null
             const user = User.findOne({ username: currentUser.username })
@@ -45,6 +49,11 @@ module.exports = {
         addRecipe: async (root, args, { Recipe }) => {
             const newRecipe = await new Recipe({ ...args.input }).save()
             return newRecipe
+        },
+
+        deleteUserRecipe: async (root, { _id }, { Recipe }) => {
+            const recipe = await Recipe.findOneAndRemove({ _id })
+            return recipe
         },
 
         signupUser: async (root, args, { User }) => {

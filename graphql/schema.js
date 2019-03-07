@@ -50,11 +50,13 @@ module.exports = gql`
         getCurrentUser: User
         getRecipe(_id: ID!): Recipe
         searchRecipes(searchTerm: String): [Recipe]
+        getUserRecipes(user: ID!): [Recipe]
     }
 
     type Mutation {
         addRecipe(input: RecipeInput!): Recipe
         signupUser(input: SignupUserInput!): Token
         signinUser(input: SigninUserInput!): Token
+        deleteUserRecipe(_id: ID): Recipe
     }
 `
