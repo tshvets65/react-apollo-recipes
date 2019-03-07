@@ -3,6 +3,7 @@ import { Query } from 'react-apollo'
 import moment from 'moment'
 import { GET_RECIPE } from '../../queries'
 import { categories } from './categories'
+import AddToFavorites from './AddToFavorites'
 
 const RecipeDetails = ({ match }) => {
     const id = match.params.id
@@ -11,7 +12,7 @@ const RecipeDetails = ({ match }) => {
             {({ data, loading, error }) => {
                 if (loading) return <div>Loading...</div>
                 if (error) return <div>Error</div>
-                const { name, category, description, instructions, likes, createdAt, author } = data.getRecipe
+                const { _id, name, category, description, instructions, likes, createdAt, author } = data.getRecipe
                 return (
                     <div className='App'>
                         <h4>{name}</h4>
@@ -21,7 +22,7 @@ const RecipeDetails = ({ match }) => {
                         <p>Likes: {likes}</p>
                         <p>Autor: {author.username}</p>
                         <p>Created {moment(new Date(Number(createdAt))).format('MMMM Do YYYY')}</p>
-                        <button>Like</button>
+                        <AddToFavorites recipeId={_id} />
                     </div>
 
                 )

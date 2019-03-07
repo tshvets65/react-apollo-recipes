@@ -8,7 +8,6 @@ const RecipeItem = ({ _id, name, category, likes }) => (
             <h4>{name}</h4>
         </Link>
         {category && <p><strong>{categories[category]}</strong></p>}
-        {likes !== null && <p>{likes} likes</p>}
     </li>
 
 )

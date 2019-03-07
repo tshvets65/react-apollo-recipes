@@ -56,6 +56,18 @@ module.exports = {
             return recipe
         },
 
+        addRecipeToFavorites: async (root, { recipeId, userId }, { User, Recipe }) => {
+            const recipe = await Recipe.findOneAndUpdate({ _id: recipeId }, { $inc: { likes: 1 } })
+            const user = await User.findOneAndUpdate({ _id: userId }, { $addToSet: { favorites: recipeId } })
+            return recipe
+        },
+
+        removeRecipeFromFavorites: async (root, { recipeId, userId }, { User, Recipe }) => {
+            const recipe = await Recipe.findOneAndUpdate({ _id: recipeId }, { $inc: { likes: -1 } })
+            const user = await User.findOneAndUpdate({ _id: userId }, { $pull: { favorites: recipeId } })
+            return recipe
+        },
+
         signupUser: async (root, args, { User }) => {
             const { username, email, password } = args.input
             const user = await User.findOne({ username })

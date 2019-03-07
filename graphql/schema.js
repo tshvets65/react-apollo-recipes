@@ -58,5 +58,7 @@ module.exports = gql`
         signupUser(input: SignupUserInput!): Token
         signinUser(input: SigninUserInput!): Token
         deleteUserRecipe(_id: ID): Recipe
+        addRecipeToFavorites(recipeId: ID!, userId: ID!): Recipe
+        removeRecipeFromFavorites(recipeId: ID!, userId: ID!): Recipe
     }
 `

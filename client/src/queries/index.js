@@ -61,6 +61,24 @@ mutation($id: ID!) {
 }
 `
 
+export const ADD_TO_FAVORITES = gql`
+mutation($recipeId: ID!, $userId: ID!) {
+  addRecipeToFavorites(recipeId: $recipeId, userId: $userId) {
+    _id
+    likes
+  }
+}
+`
+
+export const REMOVE_FROM_FAVORITES = gql`
+mutation($recipeId: ID!, $userId: ID!) {
+  removeRecipeFromFavorites(recipeId: $recipeId, userId: $userId) {
+    _id
+    likes
+  }
+}
+`
+
 export const GET_CURRENT_USER = gql`
     query {
         getCurrentUser {
