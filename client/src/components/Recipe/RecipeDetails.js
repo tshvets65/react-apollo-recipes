@@ -4,14 +4,16 @@ import moment from 'moment'
 import { GET_RECIPE } from '../../queries'
 import { categories } from './categories'
 import AddToFavorites from './AddToFavorites'
+import Error from '../Error'
+import Spinner from '../Spinner'
 
 const RecipeDetails = ({ match }) => {
     const id = match.params.id
     return (
         <Query query={GET_RECIPE} variables={{ id }}>
             {({ data, loading, error }) => {
-                if (loading) return <div>Loading...</div>
-                if (error) return <div>Error</div>
+                if (loading) return <Spinner />
+                if (error) return <Error error={error} />
                 const { _id, name, imageUrl, category, description, instructions, likes, createdAt, author } = data.getRecipe
                 return (
                     <div className='App'>

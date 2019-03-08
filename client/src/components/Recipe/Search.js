@@ -24,7 +24,7 @@ class Search extends Component {
                     const { data } = this.state
                     return (
                         <div className='App'>
-                            <input type="search" name='searchTerm' placeholder='Search Recipes' onChange={event => this.handleChange(event, client)} />
+                            <input type="search" name='searchTerm' className='search' placeholder='Search Recipes' onChange={event => this.handleChange(event, client)} />
                             <ul>
                                 {data && data.searchRecipes && data.searchRecipes.map(recipe => (
                                     <RecipeItem key={recipe._id} {...recipe} />
