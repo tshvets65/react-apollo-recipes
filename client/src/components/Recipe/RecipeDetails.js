@@ -12,19 +12,24 @@ const RecipeDetails = ({ match }) => {
             {({ data, loading, error }) => {
                 if (loading) return <div>Loading...</div>
                 if (error) return <div>Error</div>
-                const { _id, name, category, description, instructions, likes, createdAt, author } = data.getRecipe
+                const { _id, name, imageUrl, category, description, instructions, likes, createdAt, author } = data.getRecipe
                 return (
                     <div className='App'>
-                        <h4>{name}</h4>
-                        <p>Category: {categories[category]}</p>
-                        <p>Description: {description}</p>
-                        <p>Instructions: {instructions}</p>
-                        <p>Likes: {likes}</p>
-                        <p>Autor: {author.username}</p>
-                        <p>Created {moment(new Date(Number(createdAt))).format('MMMM Do YYYY')}</p>
+                        <div className="recipe-image" style={{ background: `url(${imageUrl}) center center / cover no-repeat` }}></div>
+                        <div className="recipe">
+                            <div className="recipe-header">
+                                <h2 className='recipe-name'>{name}</h2>
+                                <h5>{categories[category]}</h5>
+                                <p>Created by <strong>{author.username}</strong> on {moment(new Date(Number(createdAt))).format('MMMM Do YYYY')}</p>
+                                <p>{likes} <span role='img' aria-label='heart'>❤️</span></p>
+                            </div>
+                            <blockquote className="recipe-description">{description}</blockquote>
+                            <h3 className="recipe-instructions__title">Instructions</h3>
+                            <div className="recipe-instructions">{instructions}</div>
+                        </div>
                         <AddToFavorites recipeId={_id} />
-                    </div>
 
+                    </div>
                 )
             }}
         </Query>

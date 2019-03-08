@@ -6,6 +6,7 @@ import withAuth from '../withAuth'
 
 const initialState = {
     name: '',
+    imageUrl: '',
     category: '',
     description: '',
     instructions: '',
@@ -40,8 +41,9 @@ class AddRecipe extends Component {
 
     validateForm = () => {
         let formIsValid = true
-        const { name, category, description, instructions } = this.state
+        const { name, imageUrl, category, description, instructions } = this.state
         formIsValid = formIsValid && name.trim() !== ''
+        formIsValid = formIsValid && imageUrl.trim() !== ''
         formIsValid = formIsValid && category !== ''
         formIsValid = formIsValid && description.trim() !== ''
         formIsValid = formIsValid && instructions.trim() !== ''
@@ -59,14 +61,14 @@ class AddRecipe extends Component {
     }
 
     render() {
-        const { name, category, description, instructions, author, formIsValid } = this.state
+        const { name, imageUrl, category, description, instructions, author, formIsValid } = this.state
 
         return (
             <div className='App'>
                 <h2>Add Recipe</h2>
                 <Mutation
                     mutation={ADD_RECIPE}
-                    variables={{ name, category, description, instructions, author }}
+                    variables={{ name, imageUrl, category, description, instructions, author }}
                     refetchQueries={() => [
                         { query: GET_USER_RECIPES, variables: { user: author } }
                     ]}
@@ -76,6 +78,7 @@ class AddRecipe extends Component {
                         return (
                             <form className='form' onSubmit={event => this.handleSubmit(event, addRecipe)}>
                                 <input type="text" name='name' placeholder='Recipe name' value={name} onChange={this.handleChange} />
+                                <input type="text" name='imageUrl' placeholder='Recipe Image' value={imageUrl} onChange={this.handleChange} />
                                 <select name='category' calue={category} onChange={this.handleChange}>
                                     <option value="">Select</option>
                                     <option value="main">Main Dishes</option>

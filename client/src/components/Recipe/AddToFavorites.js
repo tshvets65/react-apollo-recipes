@@ -76,7 +76,15 @@ class AddToFavorites extends Component {
                     >
                         {
                             addRecipeToFavorites => (
-                                userId ? <button onClick={() => this.handleClick(addRecipeToFavorites, removeRecipeFromFavorites)}>{isFavorite ? 'Remove from Favorites' : 'Add to Favorites'}</button> : null
+                                userId ? (
+                                    <button
+                                        onClick={() => this.handleClick(addRecipeToFavorites, removeRecipeFromFavorites)}
+                                        className='like-button'
+                                    >
+                                        {isFavorite ? 'Remove from Favorites' : 'Add to Favorites'}
+                                    </button>
+                                )
+                                    : null
                             )
                         }
                     </Mutation>
