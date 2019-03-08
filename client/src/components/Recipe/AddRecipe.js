@@ -64,8 +64,6 @@ class AddRecipe extends Component {
     handleEditorChange = event => {
         const newContent = event.editor.getData()
         this.setState({ instructions: newContent })
-        console.log(event)
-        // this.setState({ [event.target.name]: newContent })
     }
 
     render() {
@@ -87,7 +85,7 @@ class AddRecipe extends Component {
                             <form className='form' onSubmit={event => this.handleSubmit(event, addRecipe)}>
                                 <input type="text" name='name' placeholder='Recipe name' value={name} onChange={this.handleChange} />
                                 <input type="text" name='imageUrl' placeholder='Recipe Image' value={imageUrl} onChange={this.handleChange} />
-                                <select name='category' calue={category} onChange={this.handleChange}>
+                                <select name='category' value={category} onChange={this.handleChange}>
                                     <option value="">Select</option>
                                     <option value="main">Main Dishes</option>
                                     <option value="side">Side Dishes</option>
@@ -99,7 +97,10 @@ class AddRecipe extends Component {
                                 <label htmlFor="instructions">Add Instructions</label>
                                 <CKEditor name="instructions" content={instructions} events={{ change: this.handleEditorChange }} />
                                 {/* <textarea name="instructions" placeholder="Add instructions" value={instructions} onChange={this.handleChange}></textarea> */}
-                                <button type='submit' disabled={loading || !formIsValid} className={loading || !formIsValid ? 'button-secondary' : 'button-primary'}>Submit</button>
+                                <div style={{ marginTop: '20px' }}>
+                                    <button onClick={this.clearState}>Cancel</button>
+                                    <button type='submit' disabled={loading || !formIsValid} className={loading || !formIsValid ? '' : 'button-primary'}>Submit</button>
+                                </div>
                                 {error && <Error error={error} />}
                             </form>
                         )

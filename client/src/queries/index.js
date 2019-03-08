@@ -34,6 +34,10 @@ query($user: ID!) {
   getUserRecipes(user: $user) {
     _id
     name
+    imageUrl
+    category
+    description
+    instructions
     likes
   }
 }
@@ -50,8 +54,8 @@ export const ADD_RECIPE = gql`
       author: $author
     }) {
       _id
-        name
-        category
+      name
+      category
     }
   }
 `
@@ -60,6 +64,26 @@ export const DELETE_USER_RECIPE = gql`
 mutation($id: ID!) {
   deleteUserRecipe(_id: $id) {
     _id
+  }
+}
+`
+
+export const UPDATE_USER_RECIPE = gql`
+mutation($_id: ID!, $name: String!, $imageUrl: String!, $category: String!, $description: String!, $instructions: String! ) {
+  updateUserRecipe(_id: $_id, input: {
+    name: $name, 
+    imageUrl: $imageUrl,
+    category: $category,
+    description: $description,
+    instructions: $instructions
+  }) {
+    _id
+    name
+    imageUrl
+    category
+    description
+    instructions
+    likes
   }
 }
 `

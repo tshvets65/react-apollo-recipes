@@ -47,6 +47,14 @@ module.exports = gql`
         author: ID!
     }
 
+    input RecipeUpdateInput {
+        name: String!
+        imageUrl: String!
+        category: String!
+        description: String!
+        instructions: String! 
+    }
+
     type Query {
         getAllRecipes: [Recipe]
         getCurrentUser: User
@@ -57,10 +65,11 @@ module.exports = gql`
 
     type Mutation {
         addRecipe(input: RecipeInput!): Recipe
-        signupUser(input: SignupUserInput!): Token
-        signinUser(input: SigninUserInput!): Token
         deleteUserRecipe(_id: ID): Recipe
         addRecipeToFavorites(recipeId: ID!, userId: ID!): Recipe
         removeRecipeFromFavorites(recipeId: ID!, userId: ID!): Recipe
+        updateUserRecipe(_id: ID, input: RecipeUpdateInput!): Recipe
+        signupUser(input: SignupUserInput!): Token
+        signinUser(input: SigninUserInput!): Token
     }
 `

@@ -68,6 +68,11 @@ module.exports = {
             return recipe
         },
 
+        updateUserRecipe: async (root, { _id, input }, { Recipe }) => {
+            const updatedRecipe = await Recipe.findOneAndUpdate({ _id }, { $set: { ...input } }, { new: true })
+            return updatedRecipe
+        },
+
         signupUser: async (root, args, { User }) => {
             const { username, email, password } = args.input
             const user = await User.findOne({ username })
