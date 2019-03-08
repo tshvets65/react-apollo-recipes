@@ -25,7 +25,7 @@ const RecipeDetails = ({ match }) => {
                             </div>
                             <blockquote className="recipe-description">{description}</blockquote>
                             <h3 className="recipe-instructions__title">Instructions</h3>
-                            <div className="recipe-instructions">{instructions}</div>
+                            <div className="recipe-instructions" dangerouslySetInnerHTML={{ __html: instructions }}></div>
                         </div>
                         <AddToFavorites recipeId={_id} />
 

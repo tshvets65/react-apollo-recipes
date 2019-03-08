@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import { Mutation } from 'react-apollo'
+import CKEditor from 'react-ckeditor-component'
 import { ADD_RECIPE, GET_ALL_RECIPES, GET_USER_RECIPES } from '../../queries'
 import Error from '../Error'
 import withAuth from '../withAuth'
@@ -60,6 +61,13 @@ class AddRecipe extends Component {
         })
     }
 
+    handleEditorChange = event => {
+        const newContent = event.editor.getData()
+        this.setState({ instructions: newContent })
+        console.log(event)
+        // this.setState({ [event.target.name]: newContent })
+    }
+
     render() {
         const { name, imageUrl, category, description, instructions, author, formIsValid } = this.state
 
@@ -88,7 +96,9 @@ class AddRecipe extends Component {
                                     <option value="snacks">Snacks</option>
                                 </select>
                                 <input type="text" name='description' placeholder='Add description' value={description} onChange={this.handleChange} />
-                                <textarea name="instructions" placeholder="Add instructions" value={instructions} onChange={this.handleChange}></textarea>
+                                <label htmlFor="instructions">Add Instructions</label>
+                                <CKEditor name="instructions" content={instructions} events={{ change: this.handleEditorChange }} />
+                                {/* <textarea name="instructions" placeholder="Add instructions" value={instructions} onChange={this.handleChange}></textarea> */}
                                 <button type='submit' disabled={loading || !formIsValid} className={loading || !formIsValid ? 'button-secondary' : 'button-primary'}>Submit</button>
                                 {error && <Error error={error} />}
                             </form>
