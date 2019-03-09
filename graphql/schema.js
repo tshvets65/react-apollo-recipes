@@ -8,6 +8,7 @@ module.exports = gql`
         imageUrl: String!
         category: String!
         description: String!
+        ingredients: String!
         instructions: String!
         createdAt: String
         likes: Int
@@ -43,6 +44,7 @@ module.exports = gql`
         imageUrl: String!
         category: String!
         description: String!
+        ingredients: String!
         instructions: String! 
         author: ID!
     }
@@ -52,6 +54,7 @@ module.exports = gql`
         imageUrl: String!
         category: String!
         description: String!
+        ingredients: String!
         instructions: String! 
     }
 

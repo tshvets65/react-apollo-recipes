@@ -12,6 +12,7 @@ const initialState = {
     imageUrl: '',
     category: '',
     description: '',
+    ingredients: '',
     instructions: '',
     formIsValid: true,
     modal: false
@@ -38,11 +39,12 @@ class UserRecipes extends Component {
 
     validateForm = () => {
         let formIsValid = true
-        const { name, imageUrl, category, description, instructions } = this.state
+        const { name, imageUrl, category, description, ingredients, instructions } = this.state
         formIsValid = formIsValid && name.trim() !== ''
         formIsValid = formIsValid && imageUrl.trim() !== ''
         formIsValid = formIsValid && category !== ''
         formIsValid = formIsValid && description.trim() !== ''
+        formIsValid = formIsValid && ingredients.trim() !== ''
         formIsValid = formIsValid && instructions.trim() !== ''
         this.setState({ formIsValid })
     }
@@ -61,9 +63,9 @@ class UserRecipes extends Component {
         }).catch(err => console.error(err))
     }
 
-    handleEditorChange = event => {
+    handleEditorChange = (event, name) => {
         const newContent = event.editor.getData()
-        this.setState({ instructions: newContent })
+        this.setState({ [name]: newContent }, () => this.validateForm())
     }
 
     render() {
@@ -137,8 +139,8 @@ class UserRecipes extends Component {
     }
 }
 
-const EditRecipeModal = ({ closeModal, handleChange, handleEditorChange, handleSubmit, _id, name, imageUrl, category, description, instructions, formIsValid }) => (
-    <Mutation mutation={UPDATE_USER_RECIPE} variables={{ _id, name, imageUrl, category, description, instructions }}>
+const EditRecipeModal = ({ closeModal, handleChange, handleEditorChange, handleSubmit, _id, name, imageUrl, category, description, ingredients, instructions, formIsValid }) => (
+    <Mutation mutation={UPDATE_USER_RECIPE} variables={{ _id, name, imageUrl, category, description, ingredients, instructions }}>
         {(updateUserRecipe, { data, loading, error }) => {
             if (error) return <Error error={error} />
             return (
@@ -162,10 +164,21 @@ const EditRecipeModal = ({ closeModal, handleChange, handleEditorChange, handleS
                                 </select>
                                 <label htmlFor="description">Description</label>
                                 <input type="text" name='description' value={description} onChange={handleChange} />
+                                <label htmlFor="ingredients">Ingredients</label>
+                                <CKEditor
+                                    name="ingredients"
+                                    id="ingredients"
+                                    content={ingredients}
+                                    // config={{ height: '4em' }}
+                                    events={{ change: event => handleEditorChange(event, 'ingredients') }}
+                                />
                                 <label htmlFor="instructions">Instructions</label>
-                                <CKEditor name="instructions" content={instructions} events={{ change: handleEditorChange }} />
-
-                                {/* <textarea name="instructions" cols="30" rows="10" value={instructions} onChange={handleChange} ></textarea> */}
+                                <CKEditor
+                                    name="instructions"
+                                    id="instructions"
+                                    content={instructions}
+                                    events={{ change: event => handleEditorChange(event, 'instructions') }}
+                                />
                                 <div className="modal-buttons">
                                     <button onClick={closeModal}>Cancel</button>
                                     <button disabled={loading || !formIsValid} className={loading || !formIsValid ? '' : 'button-primary'}>Save</button>

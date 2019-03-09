@@ -10,6 +10,7 @@ const initialState = {
     imageUrl: '',
     category: '',
     description: '',
+    ingredients: '',
     instructions: '',
     author: '',
     formIsValid: false
@@ -42,11 +43,12 @@ class AddRecipe extends Component {
 
     validateForm = () => {
         let formIsValid = true
-        const { name, imageUrl, category, description, instructions } = this.state
+        const { name, imageUrl, category, description, ingredients, instructions } = this.state
         formIsValid = formIsValid && name.trim() !== ''
         formIsValid = formIsValid && imageUrl.trim() !== ''
         formIsValid = formIsValid && category !== ''
         formIsValid = formIsValid && description.trim() !== ''
+        formIsValid = formIsValid && ingredients.trim() !== ''
         formIsValid = formIsValid && instructions.trim() !== ''
         this.setState({ formIsValid })
     }
@@ -61,20 +63,20 @@ class AddRecipe extends Component {
         })
     }
 
-    handleEditorChange = event => {
+    handleEditorChange = (event, name) => {
         const newContent = event.editor.getData()
-        this.setState({ instructions: newContent })
+        this.setState({ [name]: newContent }, () => this.validateForm())
     }
 
     render() {
-        const { name, imageUrl, category, description, instructions, author, formIsValid } = this.state
+        const { name, imageUrl, category, description, ingredients, instructions, author, formIsValid } = this.state
 
         return (
             <div className='App'>
                 <h2>Add Recipe</h2>
                 <Mutation
                     mutation={ADD_RECIPE}
-                    variables={{ name, imageUrl, category, description, instructions, author }}
+                    variables={{ name, imageUrl, category, description, ingredients, instructions, author }}
                     refetchQueries={() => [
                         { query: GET_USER_RECIPES, variables: { user: author } }
                     ]}
@@ -94,10 +96,22 @@ class AddRecipe extends Component {
                                     <option value="snacks">Snacks</option>
                                 </select>
                                 <input type="text" name='description' placeholder='Add description' value={description} onChange={this.handleChange} />
+                                <label htmlFor="ingredients">Add Ingredients</label>
+                                <CKEditor
+                                    name="ingredients"
+                                    id="ingredients"
+                                    content={ingredients}
+                                    // config={{ height: '4em' }}
+                                    events={{ change: event => this.handleEditorChange(event, 'ingredients') }}
+                                />
                                 <label htmlFor="instructions">Add Instructions</label>
-                                <CKEditor name="instructions" content={instructions} events={{ change: this.handleEditorChange }} />
-                                {/* <textarea name="instructions" placeholder="Add instructions" value={instructions} onChange={this.handleChange}></textarea> */}
-                                <div style={{ marginTop: '20px' }}>
+                                <CKEditor
+                                    name="instructions"
+                                    id="instructions"
+                                    content={instructions}
+                                    events={{ change: event => this.handleEditorChange(event, 'instructions') }}
+                                />
+                                <div className="modal-buttons">
                                     <button onClick={this.clearState}>Cancel</button>
                                     <button type='submit' disabled={loading || !formIsValid} className={loading || !formIsValid ? '' : 'button-primary'}>Submit</button>
                                 </div>

@@ -19,6 +19,7 @@ query($id: ID!) {
     imageUrl
     category
     description
+    ingredients
     instructions
     likes
     createdAt
@@ -37,6 +38,7 @@ query($user: ID!) {
     imageUrl
     category
     description
+    ingredients
     instructions
     likes
   }
@@ -44,12 +46,13 @@ query($user: ID!) {
 `
 
 export const ADD_RECIPE = gql`
-  mutation($name: String!, $imageUrl: String!, $category: String!, $description: String!, $instructions: String!, $author: ID! ) {
+  mutation($name: String!, $imageUrl: String!, $category: String!, $description: String!, $ingredients: String!, $instructions: String!, $author: ID! ) {
     addRecipe(input: {
       name: $name, 
       imageUrl: $imageUrl,
       category: $category,
       description: $description,
+      ingredients: $ingredients,
       instructions: $instructions,
       author: $author
     }) {
@@ -69,12 +72,13 @@ mutation($id: ID!) {
 `
 
 export const UPDATE_USER_RECIPE = gql`
-mutation($_id: ID!, $name: String!, $imageUrl: String!, $category: String!, $description: String!, $instructions: String! ) {
+mutation($_id: ID!, $name: String!, $imageUrl: String!, $category: String!, $description: String!, $ingredients: String!, $instructions: String! ) {
   updateUserRecipe(_id: $_id, input: {
     name: $name, 
     imageUrl: $imageUrl,
     category: $category,
     description: $description,
+    ingredients: $ingredients,
     instructions: $instructions
   }) {
     _id
@@ -82,6 +86,7 @@ mutation($_id: ID!, $name: String!, $imageUrl: String!, $category: String!, $des
     imageUrl
     category
     description
+    ingredients
     instructions
     likes
   }

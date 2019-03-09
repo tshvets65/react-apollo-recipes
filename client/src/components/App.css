@@ -313,6 +313,7 @@ nav a {
   flex-direction: row;
   justify-content: flex-end;
   align-items: center;
+  margin-top: 20px;
 }
 
 .modal-buttons button {
