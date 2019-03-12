@@ -1,8 +1,9 @@
 import React, { Component } from 'react'
-import { withRouter } from 'react-router-dom'
+import { Link } from 'react-router-dom'
 import { Mutation } from 'react-apollo'
 import { SIGNUP_USER } from '../../queries'
 import Error from '../Error'
+import classes from './Signin.module.css'
 
 const initialState = {
     username: '',
@@ -48,12 +49,13 @@ class Signup extends Component {
     render() {
         const { username, email, password, passwordConfirmation, formIsValid } = this.state
         return (
-            <div className='App'>
-                <h2>Signup</h2>
+            <div className={classes.centered}>
+                <h2>Create your account</h2>
+                <p>Existing user? <Link to='/signin'>Log in</Link></p>
                 <Mutation mutation={SIGNUP_USER} variables={{ username, email, password }}>
                     {(signupUser, { data, loading, error }) => {
                         return (
-                            <form className='form' onSubmit={event => this.handleSubmit(event, signupUser)}>
+                            <form className={classes.login_form} onSubmit={event => this.handleSubmit(event, signupUser)}>
                                 <input type="text" name='username' placeholder='Username' value={username} onChange={this.handleChange} />
                                 <input type="email" name='email' placeholder='Email' value={email} onChange={this.handleChange} />
                                 <input type="password" name='password' placeholder='Password' value={password} onChange={this.handleChange} />
@@ -70,4 +72,4 @@ class Signup extends Component {
     }
 }
 
-export default withRouter(Signup)
+export default Signup

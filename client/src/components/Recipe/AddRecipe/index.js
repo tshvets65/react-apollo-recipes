@@ -1,9 +1,10 @@
 import React, { Component } from 'react'
 import { Mutation } from 'react-apollo'
 import CKEditor from 'react-ckeditor-component'
-import { ADD_RECIPE, GET_ALL_RECIPES, GET_USER_RECIPES } from '../../queries'
-import Error from '../Error'
-import withAuth from '../withAuth'
+import { ADD_RECIPE, GET_ALL_RECIPES, GET_USER_RECIPES } from '../../../queries'
+import Error from '../../Error'
+import withAuth from '../../../hoc/withAuth'
+import classes from './AddRecipe.module.css'
 
 const initialState = {
     name: '',
@@ -72,7 +73,7 @@ class AddRecipe extends Component {
         const { name, imageUrl, category, description, ingredients, instructions, author, formIsValid } = this.state
 
         return (
-            <div className='App'>
+            <div className={classes.centered}>
                 <h2>Add Recipe</h2>
                 <Mutation
                     mutation={ADD_RECIPE}
@@ -84,11 +85,11 @@ class AddRecipe extends Component {
                 >
                     {(addRecipe, { data, loading, error }) => {
                         return (
-                            <form className='form' onSubmit={event => this.handleSubmit(event, addRecipe)}>
+                            <form className={classes.addrecipe_form} onSubmit={event => this.handleSubmit(event, addRecipe)}>
                                 <input type="text" name='name' placeholder='Recipe name' value={name} onChange={this.handleChange} />
-                                <input type="text" name='imageUrl' placeholder='Recipe Image' value={imageUrl} onChange={this.handleChange} />
+                                <input type="text" name='imageUrl' placeholder='Recipe Image URL' value={imageUrl} onChange={this.handleChange} />
                                 <select name='category' value={category} onChange={this.handleChange}>
-                                    <option value="">Select</option>
+                                    <option value="">Select Category</option>
                                     <option value="main">Main Dishes</option>
                                     <option value="side">Side Dishes</option>
                                     <option value="breakfasts">Breakfasts</option>
@@ -111,7 +112,7 @@ class AddRecipe extends Component {
                                     content={instructions}
                                     events={{ change: event => this.handleEditorChange(event, 'instructions') }}
                                 />
-                                <div className="modal-buttons">
+                                <div className={classes.buttons}>
                                     <button onClick={this.clearState}>Cancel</button>
                                     <button type='submit' disabled={loading || !formIsValid} className={loading || !formIsValid ? '' : 'button-primary'}>Submit</button>
                                 </div>

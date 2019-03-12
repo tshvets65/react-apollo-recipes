@@ -1,0 +1,19 @@
+.login_form {
+    display: flex;
+    flex-direction: column;
+}
+
+.centered {
+    margin: 0 auto;
+    padding: 1em;
+    max-width: 30em;
+    text-align: center;
+}
+
+.login_form button {
+    align-self: center;
+}
+
+.centered p a {
+    text-decoration: none;
+}

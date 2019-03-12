@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import { Mutation } from 'react-apollo'
 import { ADD_TO_FAVORITES, REMOVE_FROM_FAVORITES, GET_RECIPE } from '../../queries'
-import withSession from '../withSession'
+import withSession from '../../hoc/withSession'
 
 class AddToFavorites extends Component {
     state = {

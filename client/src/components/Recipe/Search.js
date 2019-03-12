@@ -1,41 +1,31 @@
-import React, { Component } from 'react'
-import { ApolloConsumer } from 'react-apollo'
+import React, { useContext } from 'react'
+import { Query } from 'react-apollo'
+import { Link } from 'react-router-dom'
 import { SEARCH_RECIPES } from '../../queries'
-import RecipeItem from './RecipeItem'
+import SearchContext from '../../context/search-context'
+import Spinner from '../Spinner'
+import Error from '../Error'
 
-class Search extends Component {
-    state = {
-        data: null
-    }
+const Search = () => {
 
-    handleChange = async (event, client) => {
-        event.persist()
-        const { data } = await client.query({
-            query: SEARCH_RECIPES,
-            variables: { searchTerm: event.target.value }
-        })
-        this.setState({ data })
-    }
+    const { searchTerm } = useContext(SearchContext)
 
-    render() {
-        return (
-            <ApolloConsumer>
-                {client => {
-                    const { data } = this.state
-                    return (
-                        <div className='App'>
-                            <input type="search" name='searchTerm' className='search' placeholder='Search Recipes' onChange={event => this.handleChange(event, client)} />
-                            <ul>
-                                {data && data.searchRecipes && data.searchRecipes.map(recipe => (
-                                    <RecipeItem key={recipe._id} {...recipe} />
-                                ))}
-                            </ul>
-                        </div>
-                    )
-                }}
-            </ApolloConsumer>
-        )
-    }
+    return (
+        <Query query={SEARCH_RECIPES} variables={{ searchTerm }}>
+            {({ data, loading, error }) => {
+                if (loading) return <Spinner />
+                if (error) return <Error error={error} />
+                return (
+                    data && data.searchRecipes && data.searchRecipes.map(recipe => (
+                        <Link key={recipe._id} to={`/recipe/${recipe._id}`}>
+                            <h4>{recipe.name}</h4>
+                        </Link>
+                    ))
+                )
+            }}
+        </Query>
+    )
+
 }
 
 export default Search

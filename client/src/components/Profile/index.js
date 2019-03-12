@@ -1,7 +1,7 @@
 import React from 'react'
 import UserInfo from './UserInfo'
 import UserRecipes from './UserRecipes'
-import withAuth from '../withAuth'
+import withAuth from '../../hoc/withAuth'
 
 const Profile = ({ session }) => (
     <div >

@@ -1,0 +1,43 @@
+.navigationitem {
+    margin: 10px 0;
+    box-sizing: border-box;
+    display: block;
+    width: 100%;
+}
+
+.navigationitem a {
+    color: #1eaedb;
+    text-decoration: none;
+    width: 100%;
+    box-sizing: border-box;
+    display: block;
+}
+
+.navigationitem a:hover,
+.navigationitem a:active,
+.navigationitem a.active {
+    color: #40a4c8;
+}
+
+@media (min-width: 500px) {
+    .navigationitem {
+        /* margin-right: 10px; */
+        display: flex;
+        width: auto;
+        align-items: center;
+    }
+    
+    .navigationitem a {
+        color: #1eaedb;
+    }
+    
+    .navigationitem a:active,
+    .navigationitem a.active {
+        color: white;
+    }
+
+    .navigationitem a:hover {
+        font-weight: 700;
+    }
+    
+}

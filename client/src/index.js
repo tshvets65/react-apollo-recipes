@@ -3,16 +3,17 @@ import ReactDOM from 'react-dom';
 import { BrowserRouter, Route, Switch, Redirect } from 'react-router-dom'
 import ApolloClient from 'apollo-boost'
 import { ApolloProvider } from 'react-apollo'
-import './index.css';
-import App from './components/App';
+import Home from './components/Home';
 import Signin from './components/Auth/Signin'
 import Signup from './components/Auth/Signup'
 import Search from './components/Recipe/Search'
 import AddRecipe from './components/Recipe/AddRecipe'
 import RecipeDetails from './components/Recipe/RecipeDetails'
 import Profile from './components/Profile'
-import Navbar from './components/Navbar'
-import withSession from './components/withSession'
+import Layout from './hoc/Layout'
+import withSession from './hoc/withSession'
+
+import './assets/skeleton.css'
 
 const client = new ApolloClient({
     uri: process.env.REACT_APP_APOLLO_URI,
@@ -38,10 +39,9 @@ const client = new ApolloClient({
 
 const Root = ({ refetch, session }) => (
     <BrowserRouter>
-        <>
-            <Navbar session={session} />
+        <Layout session={session}>
             <Switch>
-                <Route path='/' exact component={App} />
+                <Route path='/' exact component={Home} />
                 <Route path='/search' component={Search} />
                 <Route path='/recipe/add' render={props => <AddRecipe {...props} session={session} />} />
                 <Route path='/recipe/:id' component={RecipeDetails} />
@@ -50,7 +50,7 @@ const Root = ({ refetch, session }) => (
                 <Route path='/signup' render={props => <Signup {...props} refetch={refetch} />} />
                 <Redirect to='/' />
             </Switch>
-        </>
+        </Layout>
     </BrowserRouter>
 )
 

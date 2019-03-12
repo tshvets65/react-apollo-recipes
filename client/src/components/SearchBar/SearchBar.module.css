@@ -1,0 +1,30 @@
+.search_form {
+    padding: 0;
+    margin: 0;
+    display: flex;
+    align-items: center;
+}
+.search_form input[type="search"] {
+   -webkit-appearance: textfield;
+   border: none;
+   font-size: 10pt;
+   width: 200px;
+   height: 40px;
+   padding-left: 15px;
+   margin: 0;
+   border-radius: 4px 0 0 4px;
+ }
+
+.search_form .icon {
+   background-color: #ccc;
+   border-radius: 0 4px 4px 0;
+   height: 40px;
+   width: 40px;
+   outline: none;
+   border: none;
+   padding: 2px;
+   margin: 0;
+   display: flex;
+   align-items: center;
+   justify-content: center;
+}

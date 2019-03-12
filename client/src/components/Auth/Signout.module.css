@@ -1,0 +1,13 @@
+.signout {
+    color: #1eaedb;
+    cursor: pointer;
+    font-size: 1em;
+    margin: 10px 0;
+    box-sizing: border-box;
+    /* display: block; */
+    /* width: 100%; */
+}
+
+.signout:hover {
+    font-weight: 700;
+}
