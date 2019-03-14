@@ -3,9 +3,7 @@ import classes from './DrawerToggle.module.css'
 
 const DrawerToggle = ({ clicked }) => (
     <div onClick={clicked} className={classes.drawertoggle}>
-        <div></div>
-        <div></div>
-        <div></div>
+        <img src='https:icon.now.sh/menu/30/1EAEDB' alt='menu icon' />
     </div>
 )
 

@@ -1,0 +1,27 @@
+.content {
+    display: flex;
+    flex-direction: column;
+}
+.recipe_header {
+    display: flex;
+    justify-content: space-between;
+}
+.cardimage {
+	width: 100px;
+	height: 100px;
+}
+.cardbody {
+    display: flex;
+}
+
+.left {
+    width: 50%;
+}
+
+.right {
+    margin-left: 40px;
+}
+
+.button {
+    align-self: flex-end;
+}

@@ -8,7 +8,7 @@ const UserInfo = ({ session }) => (
         <p>Username: {session.getCurrentUser.username}</p>
         <p>Email: {session.getCurrentUser.email}</p>
         <p>Join Date: {moment(new Date(Number(session.getCurrentUser.createdAt))).format('MMMM Do YYYY')}</p>
-        <h3>{session.getCurrentUser.username}'s Favorites</h3>
+        <h3>Your Favorites</h3>
         {session.getCurrentUser.favorites.length === 0 && (
             <p>You have no favorites, go add some!</p>
         )}

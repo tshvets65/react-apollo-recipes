@@ -1,0 +1,125 @@
+.recipes li {
+    display: grid;
+    grid-template-columns: 3fr 1fr 3fr;
+}
+.icon {
+    /* border: none; */
+    padding: 4px;
+    cursor: pointer;
+}
+
+.centered {
+    margin: 0 auto;
+    padding: 1em;
+    max-width: 40em;
+    text-align: center;
+}
+
+.addrecipe_form {
+    display: flex;
+    flex-direction: column;
+}
+
+.modal_content_inner label {
+    margin-top: 20px;
+}
+
+.buttons {
+    margin-top: 20px;
+}
+
+.buttons button:first-child {
+    margin-right: 1em;
+}
+
+.dropzone {
+    border: 1px solid #e5e5e5;
+    margin-bottom: 40px;
+    height: 80px;
+    padding: 10px;
+    box-sizing: border-box;
+    display: flex;
+    justify-content: space-around;
+}
+
+.dropzone_box {
+    height: 100%;
+    width: 100%;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #1eaedb;
+}
+
+.dropzone img {
+    max-width: 200px;
+    max-height: 100%;
+}
+
+
+
+.modal {
+    position: fixed;
+    left: 0;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, 0.65);
+    z-index: 1;
+    /* visibility: hidden;
+    backface-visibility: hidden;
+    opacity: 0;
+    transition: opacity 0.15s ease-in-out; */
+  }
+  
+  .modal .modal_open {
+    visibility: visible;
+    backface-visibility: visible;
+    opacity: 1;
+    z-index: 1;
+  }
+  
+  .modal_inner {
+    position: relative;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }
+  
+  .modal_content {
+    background-color: white;
+    max-width: 800px;
+    overflow: scroll;
+    padding: 1em 1.5em;
+    position: relative;
+    margin: 2em;
+    box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.35);
+  }
+  
+  .modal_content_inner {
+    padding-top: 1em;
+    margin-bottom: 0;
+  }
+  
+  .modal_content_inner input {
+    width: 500px;
+  }
+  
+  .modal_buttons {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-end;
+    align-items: center;
+    margin-top: 20px;
+  }
+  
+  .modal_buttons button {
+    margin-left: 1em;
+  }
+  
+  .modal_buttons button:first-child {
+    margin-left: 0;
+  }

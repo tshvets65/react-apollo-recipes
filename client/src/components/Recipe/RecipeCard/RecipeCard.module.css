@@ -13,6 +13,11 @@
 	box-shadow: 3px 3px 8px hsl(0, 0%, 70%);
 }
 
+.cardimage {
+	width: 300px;
+	height: 300px;
+}
+
 .card_content {
 	padding: 1.4em;
 }
