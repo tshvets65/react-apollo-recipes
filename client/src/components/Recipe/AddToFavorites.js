@@ -77,12 +77,12 @@ class AddToFavorites extends Component {
                         {
                             addRecipeToFavorites => (
                                 userId ? (
-                                    <button
+                                    <div
                                         onClick={() => this.handleClick(addRecipeToFavorites, removeRecipeFromFavorites)}
-                                        className='like-button'
+                                        title={isFavorite ? 'Remove from Favorites' : 'Add to Favorites'}
                                     >
-                                        {isFavorite ? 'Remove from Favorites' : 'Add to Favorites'}
-                                    </button>
+                                        <img src={`https:icon.now.sh/${isFavorite ? 'favorite/30/FF0000' : 'favorite_border/30/CCCCCC'}`} alt='favorite icon' />
+                                    </div>
                                 )
                                     : null
                             )

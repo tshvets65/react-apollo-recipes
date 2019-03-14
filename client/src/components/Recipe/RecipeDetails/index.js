@@ -22,10 +22,15 @@ const RecipeDetails = ({ match }) => {
                     <div className={classes.content}>
                         <div className={classes.recipe_header}>
                             <div className={classes.recipe_subheader}>
-                                <h2>{name}</h2>
+                                <h1>{name}</h1>
                                 <p>Created by <strong>{author.username}</strong> on {moment(new Date(Number(createdAt))).format('MMMM Do YYYY')}</p>
                             </div>
-                            <div className={classes.icon} onClick={handlePrint}><img src='https:icon.now.sh/print/30/1EAEDB' alt='print icon' /></div>
+                            <div className={classes.icon}>
+                                <AddToFavorites recipeId={_id} />
+                            </div>
+                            <div className={classes.icon} onClick={handlePrint} title='Print Recipe'>
+                                <img src='https:icon.now.sh/print/30/1EAEDB' alt='print icon' />
+                            </div>
                             <div className={classes.cardimage} style={{ background: `url(${imageUrl}) center center / cover no-repeat` }}></div>
                         </div>
                         <div className={classes.cardbody}>
@@ -38,9 +43,7 @@ const RecipeDetails = ({ match }) => {
                                 <div dangerouslySetInnerHTML={{ __html: instructions }}></div>
                             </div>
                         </div>
-                        <div className={classes.button}>
-                            <AddToFavorites recipeId={_id} />
-                        </div>
+
                     </div>
                 )
             }}

@@ -4,8 +4,11 @@
 
 @media screen and (min-width: 40em) {
     .cards {
-        display: flex;
+        /* display: flex;
         flex-wrap: wrap;
-        justify-content: space-between;
+        justify-content: space-between; */
+        display: grid;
+        grid-gap: 20px;
+        grid-template-columns: repeat(auto-fill, 300px)
     }
 }

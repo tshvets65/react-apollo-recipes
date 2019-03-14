@@ -15,6 +15,11 @@
     display: none;
 }
 
+.recipe_subheader h1 {
+    text-decoration: underline wavy;
+    margin-top: 5px;
+}
+
 @media only screen and (min-width: 500px) {
     .cardimage {
         display: block;
