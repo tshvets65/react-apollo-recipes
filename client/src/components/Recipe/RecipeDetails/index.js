@@ -9,6 +9,9 @@ import classes from './RecipeDetails.module.css'
 
 const RecipeDetails = ({ match }) => {
     const id = match.params.id
+
+    const handlePrint = () => window.print()
+
     return (
         <Query query={GET_RECIPE} variables={{ id }}>
             {({ data, loading, error }) => {
@@ -22,6 +25,7 @@ const RecipeDetails = ({ match }) => {
                                 <h2>{name}</h2>
                                 <p>Created by <strong>{author.username}</strong> on {moment(new Date(Number(createdAt))).format('MMMM Do YYYY')}</p>
                             </div>
+                            <div className={classes.icon} onClick={handlePrint}><img src='https:icon.now.sh/print/30/1EAEDB' alt='print icon' /></div>
                             <div className={classes.cardimage} style={{ background: `url(${imageUrl}) center center / cover no-repeat` }}></div>
                         </div>
                         <div className={classes.cardbody}>
@@ -36,7 +40,6 @@ const RecipeDetails = ({ match }) => {
                         </div>
                         <div className={classes.button}>
                             <AddToFavorites recipeId={_id} />
-
                         </div>
                     </div>
                 )

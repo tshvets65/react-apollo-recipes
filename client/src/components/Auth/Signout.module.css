@@ -1,16 +1,26 @@
-.signout {
-    color: #1eaedb;
-    cursor: pointer;
-    font-size: 0.95em;
-    margin: 10px;
-    padding: 10px;
+.navigationitem {
+    margin: 10px 0;
     box-sizing: border-box;
-    /* display: block; */
-    /* width: 100%; */
+    display: block;
+    width: 100%;
+    color: #1eaedb;
+    text-decoration: none;
+    cursor: pointer;
+    padding: .6em 1em;
+
 }
 
-.signout:hover {
+.navigationitem:hover {
     font-weight: 700;
     background: hsl(0, 0%, 25%);
+    color: #1eaedb;
+}
 
+@media (min-width: 663px) {
+    .navigationitem {
+        display: flex;
+        width: auto;
+        align-items: center;
+        color: white;
+    }
 }

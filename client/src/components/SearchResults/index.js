@@ -5,8 +5,9 @@ import { SEARCH_RECIPES } from '../../queries'
 import SearchContext from '../../context/search-context'
 import Spinner from '../Spinner'
 import Error from '../Error'
+import classes from './SearchResults.module.css'
 
-const Search = () => {
+const SearchResults = () => {
 
     const { searchTerm } = useContext(SearchContext)
 
@@ -17,8 +18,8 @@ const Search = () => {
                 if (error) return <Error error={error} />
                 return (
                     data && data.searchRecipes && data.searchRecipes.map(recipe => (
-                        <Link key={recipe._id} to={`/recipe/${recipe._id}`}>
-                            <h4>{recipe.name}</h4>
+                        <Link key={recipe._id} to={`/recipe/${recipe._id}`} className={classes.searchresults}>
+                            <h5>{recipe.name}</h5>
                         </Link>
                     ))
                 )
@@ -28,4 +29,4 @@ const Search = () => {
 
 }
 
-export default Search
+export default SearchResults

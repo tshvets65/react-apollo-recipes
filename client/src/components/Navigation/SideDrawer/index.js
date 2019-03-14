@@ -4,7 +4,7 @@ import NavigationItems from '../NavigationItems'
 import classes from './SideDrawer.module.css'
 import Backdrop from '../../UI/Backdrop'
 
-const SideDrawer = ({ open, closed }) => {
+const SideDrawer = ({ open, closed, session }) => {
     const attachedClasses = open ? `${classes.sidedrawer} ${classes.open}` : `${classes.sidedrawer} ${classes.close}`
     return (
         <>
@@ -12,7 +12,7 @@ const SideDrawer = ({ open, closed }) => {
             <div className={attachedClasses} onClick={closed}>
                 <div className={classes.logo}><Logo /></div>
                 <nav>
-                    <NavigationItems />
+                    <NavigationItems session={session} />
                 </nav>
             </div>
         </>

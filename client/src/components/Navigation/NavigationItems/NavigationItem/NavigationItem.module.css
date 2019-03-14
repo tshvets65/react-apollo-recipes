@@ -13,31 +13,26 @@
     display: block;
 }
 
-.navigationitem a:hover,
-.navigationitem a:active,
-.navigationitem a.active {
-    color: #40a4c8;
+.navigationitem a:hover {
+    font-weight: 700;
 }
 
-@media (min-width: 500px) {
+@media (min-width: 663px) {
     .navigationitem {
-        /* margin-right: 10px; */
         display: flex;
         width: auto;
         align-items: center;
     }
     
     .navigationitem a {
-        color: #1eaedb;
+        color: white;
     }
     
     .navigationitem a:active,
     .navigationitem a.active {
-        color: white;
+        color: #1eaedb;
     }
 
-    .navigationitem a:hover {
-        font-weight: 700;
-    }
+
     
 }

@@ -6,7 +6,7 @@ import { ApolloProvider } from 'react-apollo'
 import Home from './components/Home';
 import Signin from './components/Auth/Signin'
 import Signup from './components/Auth/Signup'
-import Search from './components/Recipe/Search'
+import SearchResults from './components/SearchResults'
 import AddRecipe from './components/Recipe/AddRecipe'
 import RecipeDetails from './components/Recipe/RecipeDetails'
 import Profile from './components/Profile'
@@ -42,7 +42,7 @@ const Root = ({ refetch, session }) => (
         <Layout session={session}>
             <Switch>
                 <Route path='/' exact component={Home} />
-                <Route path='/search' component={Search} />
+                <Route path='/search' component={SearchResults} />
                 <Route path='/recipe/add' render={props => <AddRecipe {...props} session={session} />} />
                 <Route path='/recipe/:id' component={RecipeDetails} />
                 <Route path='/profile' render={props => <Profile {...props} session={session} />} />
