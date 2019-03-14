@@ -7,6 +7,7 @@ export const GET_ALL_RECIPES = gql`
           name
           imageUrl
           description
+          likes
         }
     }
 `

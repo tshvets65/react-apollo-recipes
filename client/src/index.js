@@ -12,6 +12,7 @@ import RecipeDetails from './components/Recipe/RecipeDetails'
 import Profile from './components/Profile'
 import Layout from './hoc/Layout'
 import withSession from './hoc/withSession'
+import AuthContext from './context/auth-context'
 
 import './assets/skeleton.css'
 
@@ -30,27 +31,28 @@ const client = new ApolloClient({
     },
     onError: ({ networkError }) => {
         if (networkError) {
-            // if(networkError.statusCode === 401) {
             localStorage.removeItem('token')
-            // }
         }
     }
 });
 
 const Root = ({ refetch, session }) => (
     <BrowserRouter>
-        <Layout session={session}>
-            <Switch>
-                <Route path='/' exact component={Home} />
-                <Route path='/search' component={SearchResults} />
-                <Route path='/recipe/add' render={props => <AddRecipe {...props} session={session} />} />
-                <Route path='/recipe/:id' component={RecipeDetails} />
-                <Route path='/profile' render={props => <Profile {...props} session={session} />} />
-                <Route path='/signin' render={props => <Signin {...props} refetch={refetch} />} />
-                <Route path='/signup' render={props => <Signup {...props} refetch={refetch} />} />
-                <Redirect to='/' />
-            </Switch>
-        </Layout>
+        <AuthContext.Provider value={{ refetch, session }}>
+            <Layout session={session}>
+                <Switch>
+                    <Route path='/' exact component={Home} />
+                    <Route path='/search' component={SearchResults} />
+                    <Route path='/recipe/add' render={props => <AddRecipe {...props} session={session} />} />
+                    <Route path='/recipe/:id' component={RecipeDetails} />
+                    <Route path='/profile' render={props => <Profile {...props} session={session} />} />
+                    <Route path='/signin' render={props => <Signin {...props} refetch={refetch} />} />
+                    <Route path='/signup' render={props => <Signup {...props} refetch={refetch} />} />
+                    <Redirect to='/' />
+                </Switch>
+            </Layout>
+        </AuthContext.Provider>
+
     </BrowserRouter>
 )
 

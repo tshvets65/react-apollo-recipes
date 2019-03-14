@@ -1,6 +1,6 @@
 .card {
 	background: white;
-	margin-bottom: 2em;	
+	margin-bottom: 1em;	
 	border: 1px solid #eee;
 }
 
@@ -31,19 +31,16 @@
 
 .card_content p {
 	font-size: 95%;
+	margin-bottom: 5px;
 }
 
-@media screen and (min-width: 40em) {
-  .card {
-      display: flex;
-      flex: 0 1 calc(50% - .5em);
-      margin-bottom: 1em;
-  }
+.likes {
+	display: flex;
+	width: 100%;
+	justify-content: flex-end;
+	/* align-items: ; */
+}
+.likes img {
+	display: block;
 }
 
-@media screen and (min-width: 60em) {
-  .card {
-      flex: 0 1 calc(33% - 1em);
-      margin-bottom: 2em;
-  }
-}

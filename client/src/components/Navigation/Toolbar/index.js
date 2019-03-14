@@ -6,13 +6,13 @@ import SearchBar from '../../SearchBar'
 import NavigationItems from '../NavigationItems'
 import DrawerToggle from '../SideDrawer/DrawerToggle'
 
-const Toolbar = ({ drawerToggleClicked, session }) => (
+const Toolbar = ({ drawerToggleClicked }) => (
     <header className={classes.masthead}>
         <DrawerToggle clicked={drawerToggleClicked} />
         <div className={classes.logo}><Link to='/'><Logo /></Link></div>
         <SearchBar />
         <nav className={classes.menu}>
-            <NavigationItems session={session} />
+            <NavigationItems />
         </nav>
     </header>
 )

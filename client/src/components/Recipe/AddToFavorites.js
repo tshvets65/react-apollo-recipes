@@ -1,42 +1,43 @@
-import React, { Component } from 'react'
+import React, { useContext, useState, useEffect } from 'react'
 import { Mutation } from 'react-apollo'
 import { ADD_TO_FAVORITES, REMOVE_FROM_FAVORITES, GET_RECIPE } from '../../queries'
-import withSession from '../../hoc/withSession'
+import AuthContext from '../../context/auth-context'
 
-class AddToFavorites extends Component {
-    state = {
-        userId: null,
-        isFavorite: false
-    }
+const AddToFavorites = ({ recipeId }) => {
+    const [isFavorite, setIsFavorite] = useState(false)
+    const [userId, setUserId] = useState(null)
 
-    componentDidMount() {
-        if (this.props.session.getCurrentUser) {
-            const { _id, favorites } = this.props.session.getCurrentUser
-            const prevFav = favorites.findIndex(favorite => favorite._id === this.props.recipeId) > -1
-            this.setState({ userId: _id, isFavorite: prevFav })
+    const { refetch, session } = useContext(AuthContext)
+
+    useEffect(() => {
+        if (session.getCurrentUser) {
+            setUserId(session.getCurrentUser._id)
+            const favorites = session.getCurrentUser.favorites
+            const prevFav = favorites.findIndex(favorite => favorite._id === recipeId) > -1
+            setIsFavorite(prevFav)
         }
-    }
+    }, [])
 
-    handleFavorites = (addRecipeToFavorites, removeRecipeFromFavorites) => {
-        if (this.state.isFavorite) {
-            addRecipeToFavorites().then(async ({ data }) => {
-                await this.props.refetch()
+
+
+    const handleFavorites = (addRecipeToFavorites, removeRecipeFromFavorites) => {
+        if (isFavorite) {
+            removeRecipeFromFavorites().then(async ({ data }) => {
+                await refetch()
             })
         } else {
-            removeRecipeFromFavorites().then(async ({ data }) => {
-                await this.props.refetch()
+            addRecipeToFavorites().then(async ({ data }) => {
+                await refetch()
             })
         }
     }
 
-    handleClick = (addRecipeToFavorites, removeRecipeFromFavorites) => {
-        this.setState(prevState => ({
-            isFavorite: !prevState.isFavorite
-        }), () => this.handleFavorites(addRecipeToFavorites, removeRecipeFromFavorites))
+    const handleClick = (addRecipeToFavorites, removeRecipeFromFavorites) => {
+        handleFavorites(addRecipeToFavorites, removeRecipeFromFavorites)
+        setIsFavorite(isFav => !isFav)
     }
 
-    updateAddFavorite = (cache, { data: { addRecipeToFavorites } }) => {
-        const { recipeId } = this.props
+    const updateAddFavorite = (cache, { data: { addRecipeToFavorites } }) => {
         const { getRecipe } = cache.readQuery({ query: GET_RECIPE, variables: { id: recipeId } })
         cache.writeQuery({
             query: GET_RECIPE,
@@ -47,8 +48,7 @@ class AddToFavorites extends Component {
         })
     }
 
-    updateRemoveFavorite = (cache, { data: { removeRecipeFromFavorites } }) => {
-        const { recipeId } = this.props
+    const updateRemoveFavorite = (cache, { data: { removeRecipeFromFavorites } }) => {
         const { getRecipe } = cache.readQuery({ query: GET_RECIPE, variables: { id: recipeId } })
         cache.writeQuery({
             query: GET_RECIPE,
@@ -59,41 +59,36 @@ class AddToFavorites extends Component {
         })
     }
 
-    render() {
-        const { userId, isFavorite } = this.state
-        const { recipeId } = this.props
-        return (
-            <Mutation
-                mutation={REMOVE_FROM_FAVORITES}
-                variables={{ recipeId, userId }}
-                update={this.updateRemoveFavorite}
-            >
-                {removeRecipeFromFavorites => (
-                    <Mutation
-                        mutation={ADD_TO_FAVORITES}
-                        variables={{ recipeId, userId }}
-                        update={this.updateAddFavorite}
-                    >
-                        {
-                            addRecipeToFavorites => (
-                                userId ? (
-                                    <div
-                                        onClick={() => this.handleClick(addRecipeToFavorites, removeRecipeFromFavorites)}
-                                        title={isFavorite ? 'Remove from Favorites' : 'Add to Favorites'}
-                                    >
-                                        <img src={`https:icon.now.sh/${isFavorite ? 'favorite/30/FF0000' : 'favorite_border/30/CCCCCC'}`} alt='favorite icon' />
-                                    </div>
-                                )
-                                    : null
+
+    return (
+        <Mutation
+            mutation={REMOVE_FROM_FAVORITES}
+            variables={{ recipeId, userId }}
+            update={updateRemoveFavorite}
+        >
+            {removeRecipeFromFavorites => (
+                <Mutation
+                    mutation={ADD_TO_FAVORITES}
+                    variables={{ recipeId, userId }}
+                    update={updateAddFavorite}
+                >
+                    {
+                        addRecipeToFavorites => (
+                            userId ? (
+                                <div
+                                    onClick={() => handleClick(addRecipeToFavorites, removeRecipeFromFavorites)}
+                                    title={isFavorite ? 'Remove from Favorites' : 'Add to Favorites'}
+                                >
+                                    <img src={`https:icon.now.sh/${isFavorite ? 'favorite/30/FF0000' : 'favorite_border/30/CCCCCC'}`} alt='favorite icon' />
+                                </div>
                             )
-                        }
-                    </Mutation>
-                )}
-
-            </Mutation>
-
-        )
-    }
+                                : null
+                        )
+                    }
+                </Mutation>
+            )}
+        </Mutation>
+    )
 }
 
-export default withSession(AddToFavorites)
+export default AddToFavorites
