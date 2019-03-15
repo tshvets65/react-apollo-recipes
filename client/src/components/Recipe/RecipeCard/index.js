@@ -1,9 +1,15 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
+import posed from 'react-pose'
 import classes from './RecipeCard.module.css'
 
+const RecipeItem = posed.article({
+    shown: { opacity: 1 },
+    hidden: { opacity: 0 }
+})
+
 export default ({ _id, name, description, imageUrl, likes }) => (
-    <article className={classes.card}>
+    <RecipeItem className={classes.card}>
         <Link to={`/recipe/${_id}`}>
             <div className={classes.cardimage} style={{ background: `url(${imageUrl}) center center / cover no-repeat` }}></div>
             <div className={classes.card_content}>
@@ -13,5 +19,5 @@ export default ({ _id, name, description, imageUrl, likes }) => (
             </div>
 
         </Link>
-    </article>
+    </RecipeItem>
 )
