@@ -43,9 +43,9 @@ class AddRecipe extends Component {
         try {
             const data = new FormData()
             data.append('file', this.state.image)
-            data.append('cloud_name', 'tshvets')
+            data.append('cloud_name', process.env.REACT_APP_CLOUD_NAME)
             data.append('upload_preset', 'recipes')
-            const response = await axios.post(`https://api.cloudinary.com/v1_1/tshvets/image/upload`, data)
+            const response = await axios.post(`https://api.cloudinary.com/v1_1/${process.env.REACT_APP_CLOUD_NAME}/image/upload`, data)
             return response.data.url
         } catch (err) {
             console.error('Error uploading image', err)

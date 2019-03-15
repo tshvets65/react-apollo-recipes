@@ -56,12 +56,13 @@ class Signup extends Component {
                     {(signupUser, { data, loading, error }) => {
                         return (
                             <form className={classes.login_form} onSubmit={event => this.handleSubmit(event, signupUser)}>
+                                {error && <Error error={error} />}
                                 <input type="text" name='username' placeholder='Username' value={username} onChange={this.handleChange} />
                                 <input type="email" name='email' placeholder='Email' value={email} onChange={this.handleChange} />
                                 <input type="password" name='password' placeholder='Password' value={password} onChange={this.handleChange} />
                                 <input type="password" name='passwordConfirmation' placeholder='Confirm password' value={passwordConfirmation} onChange={this.handleChange} />
                                 <button type='submit' disabled={loading || !formIsValid} className={loading || !formIsValid ? 'button-secondary' : 'button-primary'}>Submit</button>
-                                {error && <Error error={error} />}
+
                             </form>
                         )
                     }}

@@ -17,13 +17,13 @@ const RecipeDetails = ({ match }) => {
             {({ data, loading, error }) => {
                 if (loading) return <Spinner />
                 if (error) return <Error error={error} />
-                const { _id, name, imageUrl, ingredients, instructions, createdAt, author } = data.getRecipe
+                const { _id, name, imageUrl, ingredients, instructions, createdAt, author, likes } = data.getRecipe
                 return (
                     <div className={classes.content}>
                         <div className={classes.recipe_header}>
                             <div className={classes.recipe_subheader}>
                                 <h1>{name}</h1>
-                                <p>Created by <strong>{author.username}</strong> on {moment(new Date(Number(createdAt))).format('MMMM Do YYYY')}</p>
+                                <p className={classes.likes}>Created by&nbsp;<strong>{author.username}&nbsp;</strong> • {moment(new Date(Number(createdAt))).format('MMMM Do YYYY')} • {likes} <img src='https:icon.now.sh/favorite/20/FF0000' alt='favorite icon' /></p>
                             </div>
                             <div className={classes.icon}>
                                 <AddToFavorites recipeId={_id} />

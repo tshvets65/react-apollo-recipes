@@ -47,9 +47,9 @@ class UserRecipes extends Component {
         try {
             const data = new FormData()
             data.append('file', this.state.image)
-            data.append('cloud_name', 'tshvets')
+            data.append('cloud_name', process.env.REACT_APP_CLOUD_NAME)
             data.append('upload_preset', 'recipes')
-            const response = await axios.post(`https://api.cloudinary.com/v1_1/tshvets/image/upload`, data)
+            const response = await axios.post(`https://api.cloudinary.com/v1_1/${process.env.REACT_APP_CLOUD_NAME}/image/upload`, data)
             return response.data.url
         } catch (err) {
             console.error('Error uploading image', err)
@@ -125,7 +125,7 @@ class UserRecipes extends Component {
                                         <Link to={`/recipe/${recipe._id}`}>
                                             {recipe.name}
                                         </Link>
-                                        <p style={{ marginBottom: 0 }}>{recipe.likes} <span role='img' aria-label='heart'>❤️</span></p>
+                                        <p className={classes.likes}>{recipe.likes} <img src='https:icon.now.sh/favorite/20/FF0000' alt='favorite icon' /></p>
                                         <Mutation
                                             mutation={DELETE_USER_RECIPE}
                                             variables={{ id: recipe._id }}
@@ -182,8 +182,6 @@ const EditRecipeModal = ({ closeModal, handleChange, handleEditorChange, handleD
                                 <h4>Edit Recipe</h4>
                                 <label htmlFor="name">Recipe Name</label>
                                 <input type="text" name='name' value={name} onChange={handleChange} />
-                                {/* <label htmlFor="imageUrl">Image URL</label>
-                                <input type="text" name='imageUrl' value={imageUrl} onChange={handleChange} /> */}
                                 <label htmlFor="image">Recipe Image</label>
                                 <div className={classes.dropzone}>
                                     {preview && <img src={preview} alt="preview" />}
