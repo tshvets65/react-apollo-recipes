@@ -1,5 +1,6 @@
 import React, { useContext } from 'react'
-import Logo from '../Logo'
+import { Link } from 'react-router-dom'
+import Logo from '../../../assets/logo.png'
 import NavigationItems from '../NavigationItems'
 import classes from './SideDrawer.module.css'
 import Backdrop from '../../UI/Backdrop'
@@ -13,7 +14,7 @@ const SideDrawer = ({ open, closed }) => {
         <>
             <Backdrop show={open} clicked={closed} />
             <div className={attachedClasses} onClick={closed}>
-                <div className={classes.logo}><Logo /></div>
+                <div className={classes.logo}><Link to='/'><img width="80" src={Logo} alt='Logo' /></Link></div>
                 <nav>
                     <NavigationItems session={session} />
                 </nav>

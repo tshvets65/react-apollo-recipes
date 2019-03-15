@@ -1,13 +1,14 @@
 import React, { useContext } from 'react'
 import moment from 'moment'
 import { Link } from 'react-router-dom'
-import AuthContext from '../../context/auth-context'
+import AuthContext from '../../../context/auth-context'
+import classes from './UserInfo.module.css'
 
 const UserInfo = () => {
     const { session } = useContext(AuthContext)
 
     return (
-        <div className='App'>
+        <div className={classes.userinfo}>
             <h3>User Info</h3>
             <p>Username: {session.getCurrentUser.username}</p>
             <p>Email: {session.getCurrentUser.email}</p>

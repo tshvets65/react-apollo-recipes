@@ -4,9 +4,9 @@ import { Link } from 'react-router-dom'
 import CKEditor from 'react-ckeditor-component'
 import axios from 'axios'
 import Dropzone from 'react-dropzone'
-import { GET_USER_RECIPES, DELETE_USER_RECIPE, GET_ALL_RECIPES, GET_CURRENT_USER, UPDATE_USER_RECIPE } from '../../queries'
-import Error from '../Error'
-import Spinner from '../Spinner'
+import { GET_USER_RECIPES, DELETE_USER_RECIPE, GET_ALL_RECIPES, GET_CURRENT_USER, UPDATE_USER_RECIPE } from '../../../queries'
+import Error from '../../Error'
+import Spinner from '../../Spinner'
 import classes from './UserRecipes.module.css'
 
 const initialState = {

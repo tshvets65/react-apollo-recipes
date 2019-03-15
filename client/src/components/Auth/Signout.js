@@ -1,7 +1,6 @@
 import React from 'react'
 import { ApolloConsumer } from 'react-apollo'
 import { withRouter } from 'react-router-dom'
-import classes from './Signout.module.css'
 
 const handleSignOut = (client, history) => {
     localStorage.removeItem('token')
@@ -12,7 +11,7 @@ const Signout = ({ history }) => (
     <ApolloConsumer>
         {client => {
             return (
-                <li className={classes.navigationitem} onClick={() => handleSignOut(client, history)}>Log Out</li>
+                <li onClick={() => handleSignOut(client, history)}>Log Out</li>
             )
         }}
     </ApolloConsumer>
