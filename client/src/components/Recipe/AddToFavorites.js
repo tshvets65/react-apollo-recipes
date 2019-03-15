@@ -79,7 +79,7 @@ const AddToFavorites = ({ recipeId }) => {
                                     onClick={() => handleClick(addRecipeToFavorites, removeRecipeFromFavorites)}
                                     title={isFavorite ? 'Remove from Favorites' : 'Add to Favorites'}
                                 >
-                                    <img src={`https:icon.now.sh/${isFavorite ? 'favorite/30/FF0000' : 'favorite_border/30/CCCCCC'}`} alt='favorite icon' />
+                                    <img src={`https://icon.now.sh/${isFavorite ? 'favorite/30/FF0000' : 'favorite_border/30/CCCCCC'}`} alt='favorite icon' />
                                 </div>
                             )
                                 : null

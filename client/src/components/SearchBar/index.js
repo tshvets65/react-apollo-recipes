@@ -25,7 +25,7 @@ const SearchBar = props => {
                 size={20}
                 maxLength={100}
             />
-            <button type='submit' className={classes.icon}><img src='https:icon.now.sh/search/30/1EAEDB' alt='search icon' /></button>
+            <button type='submit' className={classes.icon}><img src='https://icon.now.sh/search/30/1EAEDB' alt='search icon' /></button>
         </form>
     )
 }

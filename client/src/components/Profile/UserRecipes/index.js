@@ -125,7 +125,7 @@ class UserRecipes extends Component {
                                         <Link to={`/recipe/${recipe._id}`}>
                                             {recipe.name}
                                         </Link>
-                                        <p className={classes.likes}>{recipe.likes} <img src='https:icon.now.sh/favorite/20/FF0000' alt='favorite icon' /></p>
+                                        <p className={classes.likes}>{recipe.likes} <img src='https://icon.now.sh/favorite/20/FF0000' alt='favorite icon' /></p>
                                         <Mutation
                                             mutation={DELETE_USER_RECIPE}
                                             variables={{ id: recipe._id }}
@@ -150,9 +150,9 @@ class UserRecipes extends Component {
                                         >
                                             {(deleteUserRecipe, attrs = {}) => (
                                                 <div>
-                                                    <span className={classes.icon} onClick={() => this.loadRecipe(recipe)}><img src='https:icon.now.sh/edit/24/1EAEDB' alt='edit icon' /></span>
+                                                    <span className={classes.icon} onClick={() => this.loadRecipe(recipe)}><img src='https://icon.now.sh/edit/24/1EAEDB' alt='edit icon' /></span>
                                                     <span className={classes.icon} onClick={() => this.handleDelete(deleteUserRecipe)}>
-                                                        {attrs.loading ? 'Deleting...' : <img src='https:icon.now.sh/delete/24/FF0000' alt='delete icon' />}
+                                                        {attrs.loading ? 'Deleting...' : <img src='https://icon.now.sh/delete/24/FF0000' alt='delete icon' />}
                                                     </span>
                                                 </div>
 

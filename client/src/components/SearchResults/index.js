@@ -20,7 +20,7 @@ const SearchResults = () => {
                     data && data.searchRecipes && data.searchRecipes.map(recipe => (
                         <Link key={recipe._id} to={`/recipe/${recipe._id}`} className={classes.searchresults}>
                             <h5>{recipe.name}</h5>
-                            <p className={classes.likes}>{recipe.likes} <img src='https:icon.now.sh/favorite/20/FF0000' alt='favorite icon' /></p>
+                            <p className={classes.likes}>{recipe.likes} <img src='https://icon.now.sh/favorite/20/FF0000' alt='favorite icon' /></p>
                         </Link>
                     ))
                 )

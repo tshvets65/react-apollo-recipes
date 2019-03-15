@@ -23,13 +23,16 @@ const RecipeDetails = ({ match }) => {
                         <div className={classes.recipe_header}>
                             <div className={classes.recipe_subheader}>
                                 <h1>{name}</h1>
-                                <p className={classes.likes}>Created by&nbsp;<strong>{author.username}&nbsp;</strong> • {moment(new Date(Number(createdAt))).format('MMMM Do YYYY')} • {likes} <img src='https:icon.now.sh/favorite/20/FF0000' alt='favorite icon' /></p>
+                                <p className={classes.likes}>
+                                    Created by&nbsp;<strong>{author.username}&nbsp;</strong> • {moment(new Date(Number(createdAt))).format('MMMM Do YYYY')} • {likes}
+                                    <img src='https://icon.now.sh/favorite/20/FF0000' alt='favorite icon' />
+                                </p>
                             </div>
                             <div className={classes.icon}>
                                 <AddToFavorites recipeId={_id} />
                             </div>
                             <div className={classes.icon} onClick={handlePrint} title='Print Recipe'>
-                                <img src='https:icon.now.sh/print/30/1EAEDB' alt='print icon' />
+                                <img src='https://icon.now.sh/print/30/1EAEDB' alt='print icon' />
                             </div>
                             <div className={classes.cardimage} style={{ background: `url(${imageUrl}) center center / cover no-repeat` }}></div>
                         </div>
